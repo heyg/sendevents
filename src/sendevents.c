@@ -43,6 +43,7 @@ int main(int argc, char *argv[]) {
     unsigned long long pusec = 0;
     unsigned long long cusec = 0;
 
+    //fprintf(stderr, "       bill-test\n");
     if (argc == 2 && strcmp(argv[1], "-v") == 0) {
         printf("sendevents version: %s\n", VERSION);
         return EXIT_SUCCESS;
@@ -67,6 +68,9 @@ int main(int argc, char *argv[]) {
     }
 
     while (fscanf(fp, "%s %hx %hx %x", buf, &ev.type, &ev.code, &ev.value) != EOF) {
+		printf("ev.type: %hx\n", ev.type);
+		printf("ev.code: %hx\n", ev.code);
+		printf("ev.value: %x\n", ev.value);
         cusec = readUsec(buf);
         if (pusec != 0 && pusec != cusec) {
             usleep((unsigned int) (cusec - pusec));
